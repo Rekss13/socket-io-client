@@ -3,11 +3,11 @@ import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://127.0.0.1:4001";
 
 const ClientComponent = () => {
-    const [response, setResponse] = useState("");
+    const [response, setResponse] = useState({});
 
     useEffect(() => {
         const socket = socketIOClient(ENDPOINT);
-        socket.on("FromAPI", data => {
+        socket.on("status", data => {
             setResponse(data);
         });
 
@@ -15,7 +15,7 @@ const ClientComponent = () => {
 
     return (
         <p>
-            It's <time dateTime={response}>{response}</time>
+            <pre>{JSON.stringify(response, null, 4)}</pre>
         </p>
     );
 }
